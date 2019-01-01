@@ -1,0 +1,48 @@
+#!/bin/bash
+
+BATTERY=0
+BATTERY_INFO=$(acpi -b | grep "Battery ${BATTERY}")
+BATTERY_STATE=$(echo "${BATTERY_INFO}" | grep -wo "Full\|Charging\|Discharging" )
+BATTERY_POWER=$(echo "${BATTERY_INFO}" | grep -o '[0-9]\+%' | tr -d '%') 
+URGENT_VALUE=10
+
+if [[ "${BATTERY_POWER}" -gt 87 ]]; then
+    BATTERY_ICON=" "
+    BATCOLOR="#00FF00"
+
+elif [[ "${BATTERY_POWER}" -gt 63 ]]; then
+     BATTERY_ICON=" "
+     BATCOLOR="#55FF00"
+
+elif [[ "${BATTERY_POWER}" -gt 38 ]]; then
+     BATTERY_ICON=" "
+     BATCOLOR="#FFFF00"
+
+elif [[ "${BATTERY_POWER}" -gt 13 ]]; then
+     BATTERY_ICON=" "
+     BATCOLOR="#FF8800"
+
+elif [[ "${BATTERY_POWER}" -le 13 ]]; then
+     BATTERY_ICON=" "
+     BATCOLOR="#FF0000"
+
+else
+    BATTERY_ICON=" "
+fi
+
+
+if [[ "${BATTERY_STATE}" = "Discharging" ]]; then
+    echo "<span background=\"#7202F3\" foreground=\"${BATCOLOR}\">${BATTERY_ICON} ${BATTERY_POWER}%  </span>"
+    #echo "${BATTERY_ICON} ${BATTERY_POWER}%"
+    #echo "${BATCOLOR}"   
+   # echo ""
+else
+    BATCOLOR="#00FF00"
+    echo "<span background=\"#7202F3\" foreground=\"${BATCOLOR}\"> ${BATTERY_POWER}%  </span>"
+   # echo " ${BATTERY_POWER}%"
+   # echo "${BATCOLOR}"
+fi
+
+if [[ "${BATTERY_POWER}" -le "${URGENT_VALUE}" ]]; then
+  exit 33
+fi

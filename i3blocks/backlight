@@ -1,0 +1,77 @@
+#!/bin/bash
+
+BRIGHTNESS=$(xbacklight -get | awk '{printf("%.0f\n", $1)}')
+
+BRIGHT_ICON=""
+#echo "${BRIGHT_ICON} ${BRIGHTNESS}%"
+#echo "${BRIGHT_ICON} ${BRIGHTNESS}%"
+
+
+
+if [[ "${BRIGHTNESS}" -ge 100 ]]; then
+	COLOR="#FFFF00"
+
+elif [[ "${BRIGHTNESS}" -gt 95 ]]; then
+	COLOR="#F8D900"
+
+elif [[ "${BRIGHTNESS}" -gt 90 ]]; then
+	COLOR="#F1B700"
+
+elif [[ "${BRIGHTNESS}" -gt 85 ]]; then
+	COLOR="#EA9800"
+
+elif [[ "${BRIGHTNESS}" -gt 80 ]]; then
+	COLOR="#E37D00"
+
+elif [[ "${BRIGHTNESS}" -gt 75 ]]; then
+	COLOR="#DB6600"
+
+elif [[ "${BRIGHTNESS}" -gt 70 ]]; then
+	COLOR="#D35200"
+
+elif [[ "${BRIGHTNESS}" -gt 65 ]]; then
+	COLOR="#CB4000"
+
+elif [[ "${BRIGHTNESS}" -gt 60 ]]; then
+	COLOR="#C23100"
+
+elif [[ "${BRIGHTNESS}" -gt 55 ]]; then
+	COLOR="#B92500"
+
+elif [[ "${BRIGHTNESS}" -gt 50 ]]; then
+	COLOR="#B01B2A"
+
+elif [[ "${BRIGHTNESS}" -gt 45 ]]; then
+	COLOR="#A51379"
+
+elif [[ "${BRIGHTNESS}" -gt 40 ]]; then
+	COLOR="#9B0DBC"
+
+elif [[ "${BRIGHTNESS}" -gt 35 ]]; then
+	COLOR="#8F08EA"
+
+elif [[ "${BRIGHTNESS}" -gt 30 ]]; then
+	COLOR="#8305FE"
+
+elif [[ "${BRIGHTNESS}" -gt 25 ]]; then
+	COLOR="#7502F7"
+
+elif [[ "${BRIGHTNESS}" -gt 20 ]]; then
+	COLOR="#6501D5"
+
+elif [[ "${BRIGHTNESS}" -gt 15 ]]; then
+	COLOR="#53009D"
+
+elif [[ "${BRIGHTNESS}" -gt 10 ]]; then
+	COLOR="#3B0053"
+
+else 	
+	COLOR="#000000"
+fi
+
+echo "<span background=\"#53009D\">${BRIGHT_ICON} ${BRIGHTNESS}%  </span>"
+#echo "${COLOR}"
+
+if [[ "${BRIGHTNESS}" -le 5 ]]; then
+	exit 33
+fi
